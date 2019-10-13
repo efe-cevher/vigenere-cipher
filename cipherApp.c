@@ -1,15 +1,15 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include "chiperApp.h"
 #include "operations.h"
+#include "cipherApp.h"
 
 short int operation;
 char keyword[10];
-char inputText[1000];
+char inputText[200];
 
 void encryptView(){ //ENCRYPTION APP
     //Get inputs from user
-    printf("Enter the plaintext that you want to encrypt (MAX LENGTH 1000) : ");
+    printf("Enter the plaintext that you want to encrypt (MAX LENGTH 200) : ");
     scanf(" %s" ,inputText);
 
     printf("Enter the keyword (MAX LENGTH 10) :");
@@ -22,10 +22,10 @@ void encryptView(){ //ENCRYPTION APP
 
 void decryptView(){ //DECRYPTION APP
     //Get inputs from user
-    printf("Enter the encrypted text that you want to decrypt: ");
+    printf("Enter the encrypted text that you want to decrypt (MAX LENGTH 200) : ");
     scanf(" %s" ,inputText);
 
-    printf("Enter the keyword:");
+    printf("Enter the keyword (MAX LENGTH 10) :");
     scanf(" %s" ,keyword);
 
     char * output; //Pointed array from "operations.c"
@@ -34,15 +34,14 @@ void decryptView(){ //DECRYPTION APP
 }
 
 int main(){
-printf("\nWELCOME TO THE VIGERENE CHIPER ENCRYPTER/DECRYPTER");
+printf("\nWelcome to the Vigenere Cipher Encrypter/Decrypter\n");
 
-int done = 1;
+short int done = 1;
 while (done == 1){  //APPLICATION LOOP
-
-    printf("\n\nChoose the operation you want to commit \n1)Encrypt \n2)Decrypt \nEnter Query Number:");
+    printf("\nChoose the operation you want to commit \n1)Encrypt \n2)Decrypt \nEnter Query Number (1 or 2): ");
     scanf(" %hd" ,&operation);
 
-    switch(operation) {
+    switch (operation){ //Choose Encryption or Decryption
         case 1:
             encryptView();
             break; 
@@ -50,19 +49,21 @@ while (done == 1){  //APPLICATION LOOP
             decryptView();
             break;
         default :
-            printf("WRONG INPUT");
+            printf("\nWRONG INPUT ");
     }
-    printf("\n\nDo you want to continue? (Y/N) : ");
+
     char cont;
+    printf("\n\nDo you want to run again? (Y/N) : ");
     scanf(" %c" ,&cont);
-    if (cont == 'N' || cont == 'n'){
-        break;
-    }else if(cont == 'Y' || cont == 'y'){
+
+    if (cont == 'Y' || cont == 'y'){ //Check if user wants to continue using app or terminate
         continue;
+    }else if(cont == 'N' || cont == 'n'){
+        printf("Terminating app, thank you for using.\n");
     }else{
-        printf("WRONG INPUT TERMINATING APP");
-        break;
+        printf("\nWRONG INPUT TERMINATING APP\n");
     }
+    done = 0;
 }
     return 0;
 }

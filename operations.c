@@ -1,30 +1,27 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include "operations.h"
 #include<string.h>
+#include "operations.h"
 
-char output[1000];
+char output[200];
 
-//get lenght of relevant part of char array
-int string_length(char str[]) {
-   int count = 0;
- 
-   while (str[count] != '\0')
+int string_length(char str[]) { //Get lenght of relevant part of char array
+    int count = 0;
+    while (str[count] != '\0')
       count++;
- 
-   return count;
+
+    return count;
 }
 
-char * encryptText(char plaintext[1000], char keyword[10]){
-
+char * encryptText(char plaintext[200], char keyword[10]){
     int keywordLen = string_length(keyword);
     int keywordLooper = 0;
 
-    memset(output,'\0',1000); // Clear array to remove leftovers from previous operations
+    memset(output,'\0',200); // Clear array to remove leftovers from previous operations
 
     int i;
     for (i=0; i<string_length(plaintext); i++){
-        output[i] = plaintext[i] + keyword[keywordLooper] - 65; //Modified letter according to given instructions
+        output[i] = (( plaintext[i] + keyword[keywordLooper]) % 26) + 'A'; //Modified letter according to vigenere cipher
 
         if (keywordLooper+1 < keywordLen){
             keywordLooper++;
@@ -35,15 +32,15 @@ char * encryptText(char plaintext[1000], char keyword[10]){
     return output;    
 }
 
-char * decryptText(char encryptedText[1000], char keyword[10]){
+char * decryptText(char encryptedText[200], char keyword[10]){
     int keywordLen = string_length(keyword);
     int keywordLooper = 0;
 
-    memset(output,'\0',1000); // Clear array to remove leftovers from previous operations
+    memset(output,'\0',200); // Clear array to remove leftovers from previous operations
 
     int i;
     for (i=0; i<string_length(encryptedText); i++){
-        output[i] = encryptedText[i] - keyword[keywordLooper] + 65; //Modified letter according to given instructions
+        output[i] = (((encryptedText[i] - keyword[keywordLooper]) + 26) % 26) + 'A'; //Modified letter according to vigenere cipher
 
         if (keywordLooper+1 < keywordLen){
             keywordLooper++;
